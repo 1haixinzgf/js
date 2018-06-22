@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="use-box">
+        <p class="username"></p>
+        <p class="desc"></p>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        //本地的json请求
+        //fetch 请求
+        // fetch('/user.json')//promise封装的方法
+    // .then(data => data.json())
+    // .then(data => {
+    //     console.log(data);
+    // })
+
+    //jquery 请求
+//     $(function(){
+//     $.getJSON("/user.json",function(data){
+//        console.log(data);
+//        $('.username').html(data.name);
+//        $('.desc').html(data.desc)
+//     });
+// });
+
+// xhr 
+    // js 主动请求数据的过程
+    // ajax 是js具有web2.0动态请求页面的能力
+    let xhr = null;
+    // js 主动发出一次http请求request，支持的数据交换格式
+    // xml ajax的核心对象是XMLHttpRequest
+    if(window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    }else {
+        xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    }
+
+    // 'get' 建立连接
+    xhr.open('get', '/user.json', true);
+    // send 发送
+    xhr.send();
+    // 一旦发送了之后，状态码就会发送改变
+    xhr.onreadystatechange = function() {
+        console.log(xhr.readyState)
+        // 200是http的状态码
+        if(xhr.readyState == 4 && xhr.status ==200) {
+            // console.log(typeof xhr.responseText);
+            const hx = JSON.parse(xhr.responseText)
+            console.log(hx.name)
+        }
+    }
+    </script>
+</body>
+</html>
